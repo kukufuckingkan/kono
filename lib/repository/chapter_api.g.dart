@@ -24,12 +24,12 @@ class _ChapterApi implements ChapterApi {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<dynamic> findByOrdinal() async {
+  Future<List<ChapterResponse>> findAll() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<dynamic>(Options(
+    final _options = _setStreamType<List<ChapterResponse>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -45,8 +45,17 @@ class _ChapterApi implements ChapterApi {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch(_options);
-    final _value = _result.data;
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<ChapterResponse> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) =>
+              ChapterResponse.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
     return _value;
   }
 

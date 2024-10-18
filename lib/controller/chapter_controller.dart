@@ -3,7 +3,7 @@ import 'dart:developer';
 
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kono/repository/chapter_api.dart';
+import 'package:kono/service/chapter_service.dart';
 
 import 'chapter_state.dart';
 
@@ -16,8 +16,8 @@ class ChapterController extends StateNotifier<ChapterState> {
     Future<dynamic> findAll() async {
     try {
       state = state.copyWith(fetching: true);
-      var response = await ref.read(chapterApi).findByOrdinal();
-      state = state.copyWith(fetching: false);
+      var response = await ref.read(chapterService).findAll();
+      state = state.copyWith(fetching: false,chapters: response);
       return response;
     } on Exception catch (e) {
        log(e.toString());

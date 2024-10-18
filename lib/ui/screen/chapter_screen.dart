@@ -1,7 +1,10 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../controller/chapter_controller.dart';
+import '../../controller/chapter_controller.dart';
 
 
 
@@ -18,7 +21,12 @@ class ChapterScreen extends ConsumerWidget {
       children: [
         Flexible(child: Consumer(builder: (_, ref, __) {
           var state = ref.watch(chapterController.select((value) => value));
-          var text = state.chapter['text'];
+          var chapters = state.chapters;
+          var curr = chapters.first;
+
+          var data = base64.decode(curr.data); 
+          String text = utf8.decode(data,allowMalformed: true);
+
           return Text(text);
         }))
       ],

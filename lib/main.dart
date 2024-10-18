@@ -2,7 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kono/ui/chapter_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kono/application_router.dart';
 import 'package:yaml/yaml.dart';
 
 Future<void> main() async {
@@ -13,19 +14,22 @@ const String activeProfile = String.fromEnvironment('ACTIVE_PROFILE', defaultVal
 const String environment = String.fromEnvironment('ACTIVE_PROFILE', defaultValue: 'web');
    
 await AppProfileConfig.load(activeProfile,environment);
-  runApp(const MainApp());
+  runApp(const ProviderScope(child: MainApp()));
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: ChapterScreen(),
-        ),
+  Widget build(context,ref) {
+    var router = ref.watch(appRouter);
+    return  MaterialApp.router(
+      routerConfig: router,
+      debugShowCheckedModeBanner: false,
+      title: 'ߞߐߣߐ',
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: const ColorScheme.highContrastDark(),
       ),
     );
   }

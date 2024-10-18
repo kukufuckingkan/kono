@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../main.dart';
+import '../response/chapter_response.dart';
 
 
 
@@ -22,7 +23,7 @@ abstract class ChapterApi {
 
 
   @GET(EndPoint.findAll)
-  Future<dynamic> findByOrdinal();
+  Future<List<ChapterResponse>> findAll();
 }
 
 

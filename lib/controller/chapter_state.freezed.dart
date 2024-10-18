@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ChapterState {
   bool get fetching => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
-  dynamic get chapter => throw _privateConstructorUsedError;
+  List<ChapterResponse> get chapters => throw _privateConstructorUsedError;
 
   /// Create a copy of ChapterState
   /// with the given fields replaced by the non-null parameter values.
@@ -33,7 +33,7 @@ abstract class $ChapterStateCopyWith<$Res> {
           ChapterState value, $Res Function(ChapterState) then) =
       _$ChapterStateCopyWithImpl<$Res, ChapterState>;
   @useResult
-  $Res call({bool fetching, String error, dynamic chapter});
+  $Res call({bool fetching, String error, List<ChapterResponse> chapters});
 }
 
 /// @nodoc
@@ -53,7 +53,7 @@ class _$ChapterStateCopyWithImpl<$Res, $Val extends ChapterState>
   $Res call({
     Object? fetching = null,
     Object? error = null,
-    Object? chapter = freezed,
+    Object? chapters = null,
   }) {
     return _then(_value.copyWith(
       fetching: null == fetching
@@ -64,10 +64,10 @@ class _$ChapterStateCopyWithImpl<$Res, $Val extends ChapterState>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
-      chapter: freezed == chapter
-          ? _value.chapter
-          : chapter // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+      chapters: null == chapters
+          ? _value.chapters
+          : chapters // ignore: cast_nullable_to_non_nullable
+              as List<ChapterResponse>,
     ) as $Val);
   }
 }
@@ -80,7 +80,7 @@ abstract class _$$ChapterStateImplCopyWith<$Res>
       __$$ChapterStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool fetching, String error, dynamic chapter});
+  $Res call({bool fetching, String error, List<ChapterResponse> chapters});
 }
 
 /// @nodoc
@@ -98,7 +98,7 @@ class __$$ChapterStateImplCopyWithImpl<$Res>
   $Res call({
     Object? fetching = null,
     Object? error = null,
-    Object? chapter = freezed,
+    Object? chapters = null,
   }) {
     return _then(_$ChapterStateImpl(
       fetching: null == fetching
@@ -109,10 +109,10 @@ class __$$ChapterStateImplCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
-      chapter: freezed == chapter
-          ? _value.chapter
-          : chapter // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+      chapters: null == chapters
+          ? _value._chapters
+          : chapters // ignore: cast_nullable_to_non_nullable
+              as List<ChapterResponse>,
     ));
   }
 }
@@ -121,18 +121,26 @@ class __$$ChapterStateImplCopyWithImpl<$Res>
 
 class _$ChapterStateImpl implements _ChapterState {
   _$ChapterStateImpl(
-      {required this.fetching, required this.error, required this.chapter});
+      {required this.fetching,
+      required this.error,
+      required final List<ChapterResponse> chapters})
+      : _chapters = chapters;
 
   @override
   final bool fetching;
   @override
   final String error;
+  final List<ChapterResponse> _chapters;
   @override
-  final dynamic chapter;
+  List<ChapterResponse> get chapters {
+    if (_chapters is EqualUnmodifiableListView) return _chapters;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_chapters);
+  }
 
   @override
   String toString() {
-    return 'ChapterState(fetching: $fetching, error: $error, chapter: $chapter)';
+    return 'ChapterState(fetching: $fetching, error: $error, chapters: $chapters)';
   }
 
   @override
@@ -143,12 +151,12 @@ class _$ChapterStateImpl implements _ChapterState {
             (identical(other.fetching, fetching) ||
                 other.fetching == fetching) &&
             (identical(other.error, error) || other.error == error) &&
-            const DeepCollectionEquality().equals(other.chapter, chapter));
+            const DeepCollectionEquality().equals(other._chapters, _chapters));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, fetching, error,
-      const DeepCollectionEquality().hash(chapter));
+      const DeepCollectionEquality().hash(_chapters));
 
   /// Create a copy of ChapterState
   /// with the given fields replaced by the non-null parameter values.
@@ -163,14 +171,14 @@ abstract class _ChapterState implements ChapterState {
   factory _ChapterState(
       {required final bool fetching,
       required final String error,
-      required final dynamic chapter}) = _$ChapterStateImpl;
+      required final List<ChapterResponse> chapters}) = _$ChapterStateImpl;
 
   @override
   bool get fetching;
   @override
   String get error;
   @override
-  dynamic get chapter;
+  List<ChapterResponse> get chapters;
 
   /// Create a copy of ChapterState
   /// with the given fields replaced by the non-null parameter values.
