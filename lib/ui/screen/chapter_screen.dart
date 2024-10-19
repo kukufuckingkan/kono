@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../controller/chapter_controller.dart';
 
@@ -27,7 +28,7 @@ class ChapterScreen extends ConsumerWidget {
           var data = base64.decode(curr.data); 
           String text = utf8.decode(data,allowMalformed: true);
 
-          return Text(text);
+          return Text(text,style: GoogleFonts.arOneSans(),);
         }))
       ],
     );

@@ -7,7 +7,7 @@ part 'chapter_entity.g.dart';
 class ChapterEntity {
 
   @HiveField(0)
-   final int  id;
+   final String  id;
 
    @HiveField(2)
    final int ordinal;
@@ -15,7 +15,10 @@ class ChapterEntity {
    @HiveField(3)
    final String name;
 
-  ChapterEntity({required this.name, required this.ordinal,required this.id});
+   @HiveField(4)
+   String data;
+
+  ChapterEntity({required this.name, required this.ordinal,required this.id,required this.data});
 
   @override
   String toString() {

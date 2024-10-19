@@ -23,10 +23,9 @@ Future<void> main() async {
 
   await AppProfileConfig.load(activeProfile, environment);
 
- // Initialize Hive
   if (kIsWeb) {
-    // For web, we don't need a specific path
-    Hive.init(''); // You can use an empty string for web
+    Hive.init('kono_db'); 
+    // You can use an empty string for web
   } else {
     // For mobile and desktop, use the appropriate path
     var directory = await getApplicationDocumentsDirectory();
@@ -34,10 +33,7 @@ Future<void> main() async {
   }
 
   // Register your adapters here
-  // Hive.registerAdapter(ChapterEntityAdapter());
-
-  // Open the box
-  var box = await Hive.openBox('semba');
+  Hive.registerAdapter(ChapterEntityAdapter());
 
   runApp(const ProviderScope(child: MainApp()));
 }

@@ -3,6 +3,7 @@ import 'dart:developer';
 
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kono/database/database_service.dart';
 import 'package:kono/service/chapter_service.dart';
 
 import 'chapter_state.dart';
@@ -18,6 +19,7 @@ class ChapterController extends StateNotifier<ChapterState> {
       state = state.copyWith(fetching: true);
       var response = await ref.read(chapterService).findAll();
       state = state.copyWith(fetching: false,chapters: response);
+      ref.read(databseService).addChapter(response);
       return response;
     } on Exception catch (e) {
        log(e.toString());

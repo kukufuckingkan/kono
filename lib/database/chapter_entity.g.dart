@@ -19,20 +19,23 @@ class ChapterEntityAdapter extends TypeAdapter<ChapterEntity> {
     return ChapterEntity(
       name: fields[3] as String,
       ordinal: fields[2] as int,
-      id: fields[0] as int,
+      id: fields[0] as String,
+      data: fields[4] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, ChapterEntity obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(2)
       ..write(obj.ordinal)
       ..writeByte(3)
-      ..write(obj.name);
+      ..write(obj.name)
+      ..writeByte(4)
+      ..write(obj.data);
   }
 
   @override
