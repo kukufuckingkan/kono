@@ -1,19 +1,44 @@
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:kono/application_router.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:yaml/yaml.dart';
 
+import 'database/chapter_entity.dart';
+
 Future<void> main() async {
-    WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
-const String activeProfile = String.fromEnvironment('ACTIVE_PROFILE', defaultValue: 'local');
+  const String activeProfile =
+      String.fromEnvironment('ACTIVE_PROFILE', defaultValue: 'local');
 
-const String environment = String.fromEnvironment('ACTIVE_PROFILE', defaultValue: 'web');
-   
-await AppProfileConfig.load(activeProfile,environment);
+  const String environment =
+      String.fromEnvironment('ACTIVE_PROFILE', defaultValue: 'web');
+
+  await AppProfileConfig.load(activeProfile, environment);
+
+ // Initialize Hive
+  if (kIsWeb) {
+    // For web, we don't need a specific path
+    Hive.init(''); // You can use an empty string for web
+  } else {
+    // For mobile and desktop, use the appropriate path
+    var directory = await getApplicationDocumentsDirectory();
+    Hive.init(directory.path);
+  }
+
+  // Register your adapters here
+  // Hive.registerAdapter(ChapterEntityAdapter());
+
+  // Open the box
+  var box = await Hive.openBox('semba');
+
   runApp(const ProviderScope(child: MainApp()));
 }
 
@@ -21,9 +46,9 @@ class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(context,ref) {
+  Widget build(context, ref) {
     var router = ref.watch(appRouter);
-    return  MaterialApp.router(
+    return MaterialApp.router(
       routerConfig: router,
       debugShowCheckedModeBanner: false,
       title: 'ߞߐߣߐ',
@@ -35,9 +60,11 @@ class MainApp extends ConsumerWidget {
   }
 }
 
-  Map<String, dynamic> appProperties = {};
- class AppProfileConfig {
-    static Future<Map<String, dynamic>> load(String activeProfile,String environment) async {
+Map<String, dynamic> appProperties = {};
+
+class AppProfileConfig {
+  static Future<Map<String, dynamic>> load(
+      String activeProfile, String environment) async {
     log("the active profile is : $activeProfile");
     String configFile = 'profiles/$activeProfile/application_$environment.yaml';
     String yamlString = await rootBundle.loadString(configFile);
@@ -46,5 +73,5 @@ class MainApp extends ConsumerWidget {
     log("profile properties are $res");
     appProperties = res;
     return res;
-    }
- }
+  }
+}
