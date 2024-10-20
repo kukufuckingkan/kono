@@ -1,14 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'title_response.dart';
+part of 'base_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-TitleResponse _$TitleResponseFromJson(Map<String, dynamic> json) =>
-    TitleResponse(
-      text: json['text'] as String,
+BaseResponse _$BaseResponseFromJson(Map<String, dynamic> json) => BaseResponse(
       sku: json['sku'] as String,
       created: DateTime.parse(json['created'] as String),
       modified: DateTime.parse(json['modified'] as String),
@@ -16,12 +14,11 @@ TitleResponse _$TitleResponseFromJson(Map<String, dynamic> json) =>
       ordinal: (json['ordinal'] as num).toInt(),
     );
 
-Map<String, dynamic> _$TitleResponseToJson(TitleResponse instance) =>
+Map<String, dynamic> _$BaseResponseToJson(BaseResponse instance) =>
     <String, dynamic>{
       'sku': instance.sku,
       'created': instance.created.toIso8601String(),
       'modified': instance.modified.toIso8601String(),
       'version': instance.version,
       'ordinal': instance.ordinal,
-      'text': instance.text,
     };

@@ -12,14 +12,16 @@ import 'chapter_state.dart';
 class ChapterController extends StateNotifier<ChapterState> {
   final Ref ref;
 
-   ChapterController(this.ref) : super(ChapterState.initial());
+   ChapterController(this.ref) : super(ChapterState.initial()){
+        Future.microtask(() => findAll());
+   }
 
     Future<dynamic> findAll() async {
     try {
       state = state.copyWith(fetching: true);
       var response = await ref.read(chapterService).findAll();
       state = state.copyWith(fetching: false,chapters: response);
-      ref.read(databseService).addChapter(response);
+      //ref.read(databseService).addChapter(response);
       return response;
     } on Exception catch (e) {
        log(e.toString());

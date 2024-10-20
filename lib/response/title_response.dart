@@ -1,25 +1,21 @@
 import 'dart:typed_data';
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:kono/response/base_response.dart';
 
 part 'title_response.g.dart';
 
 @JsonSerializable(includeIfNull: false, ignoreUnannotated: false,nullable: true)
-class TitleResponse {
-  final String header;
+class TitleResponse extends BaseResponse  {
+
   final String text;
-  
-  @JsonKey(includeIfNull: true,defaultValue: null,required: false)
-  final String ? language;
-
-
+ 
 
   TitleResponse({
-    required this.header,
-    required this.language,
-   required this.text
+   required this.text, required super.sku, required super.created, required super.modified, required super.version, required super.ordinal
   });
 
   factory TitleResponse.fromJson(Map<String, dynamic> json) => _$TitleResponseFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$TitleResponseToJson(this);
 }
