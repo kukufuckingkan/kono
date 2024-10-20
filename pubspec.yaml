@@ -28,6 +28,8 @@ dependencies:
   hive: ^2.2.3
   objectbox: ^4.0.3 
   path_provider: ^2.1.4
+  convex_bottom_bar: ^3.2.0
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:
@@ -35,11 +37,11 @@ dev_dependencies:
   flutter_lints: ^4.0.0
   build_runner: ^2.4.9
   freezed: ^2.5.2
-  go_router_builder: ^2.1.1
   retrofit_generator: ^9.1.2
   json_serializable: ^6.7.1
   hive_generator: ^2.0.1
-  convex_bottom_bar: ^3.2.0
+  build_verify: ^3.1.0
+  go_router_builder: ^2.7.1
   # carousel_slider: ^5.0.0
 
 flutter:

@@ -1,17 +1,15 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:kono/controller/book_controller.dart';
-import 'package:kono/ui/widget/book_widget.dart';
 
-class BookScreen extends StatelessWidget {
-  const BookScreen({super.key});
+class SideBarWidget extends StatelessWidget {
+  const SideBarWidget({super.key});
 
   @override
   Widget build(context) {
-    return Column(
+    return Drawer(
+        //clipBehavior: Clip.hardEdge,
+        child: Column(
       children: [
         Flexible(child: Consumer(builder: (_, ref, __) {
           var state = ref.watch(bookController.select((value) => value));
@@ -32,13 +30,20 @@ class BookScreen extends StatelessWidget {
               itemCount: books.length,
               itemBuilder: (context, index) {
                 var book = books[index];
-                return  BookWidget(book: book);
-                
+                var title = book.title!.first;
+                var subTitle = book.title!.last;
+                return ListTile(
+                  title: Text(title.text),
+                  subtitle: Text(subTitle.text),
+                );
               },
             ),
           );
         }))
       ],
-    );
+    )
+        //elevation: 20.0,
+        //semanticLabel: 'endDrawer',
+        );
   }
 }

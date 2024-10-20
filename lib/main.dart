@@ -50,7 +50,7 @@ class MainApp extends ConsumerWidget {
       title: 'ߞߐߣߐ',
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: const ColorScheme.highContrastDark(),
+        colorScheme: const ColorScheme.highContrastLight(),
       ),
     );
   }

@@ -1,64 +1,62 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ionicons/ionicons.dart';
-
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import '../widget/app_bar.dart';
-
-
+import '../widget/side_bar_widget.dart';
+import '../widget/user_account_drawer.dart';
 
 class HomePage extends ConsumerWidget {
   final Widget child;
 
   const HomePage(this.child, {super.key});
-   
+
   @override
-  Widget build( context,ref) {
-    return Scaffold(body: child,
-    appBar: const KulkulkanAppBar(preferredSize: Size.fromHeight(100), child: Text('Hello'),),
-    //drawer: const KulkulkanAccountDrawer(),
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Open the endDrawer after the first frame is rendered
+    
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Scaffold.of(context).openEndDrawer();
+      Scaffold.of(context).openDrawer();
+    });
 
+    return Scaffold(
+      drawerEnableOpenDragGesture: true,
+      
+      body: child,
+      // appBar: const KulkulkanAppBar(
+      //   preferredSize: Size.fromHeight(100),
+      //   child: Text('Hello'),
+      // ),
+      appBar: AppBar(),
+      drawer: const KulkulkanAccountDrawer(),
+      endDrawer: SideBarWidget(),
 
- bottomNavigationBar: BottomNavigationBar(
-         currentIndex: 0,     
-          onTap: (index) {
-            switch (index) {
-              case 0:
-                GoRouter.of(context).go('/word');
-                break;
-              case 1:
-                GoRouter.of(context).go('/eventsCreated');
-                break;
-              case 2:
-                GoRouter.of(context).go('/community');
-                
-                break;
-              default:
-                GoRouter.of(context).go('/');
-            }
-          },
-          items: const [
-            BottomNavigationBarItem(
-              backgroundColor: Colors.black54,
-              icon: Icon(Ionicons.book),
-              label: 'word',
-            ),
-           
-            BottomNavigationBarItem(
-              icon: Icon(Icons.air),
-              label: 'Animal',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
-            ),
-             BottomNavigationBarItem(
-              icon: Icon(Ionicons.bookmark),
-              label: 'BookMark',
-            )
-          ],
-        ),
+      bottomNavigationBar: Consumer(
+        builder: (context, WidgetRef ref, __) {
+          return ConvexAppBar(
+            style: TabStyle.react,
+            items: const [
+              TabItem(icon: Icons.list),
+              TabItem(icon: Icons.calendar_today),
+              TabItem(icon: Icons.assessment),
+            ],
+            initialActiveIndex: 0,
+            onTap: (int i) {
+              switch (i) {
+                case 0:
+                  context.go('/home');
+                  break;
+                case 1:
+                  context.go('/chapter');
+                  break;
+                default:
+                  context.go('/');
+              }
+            },
+          );
+        },
+      ),
     );
   }
 }
