@@ -13,6 +13,12 @@ List<RouteBase> get $appRoutes => [
 RouteBase get $bookScreenRoute => GoRouteData.$route(
       path: '/',
       factory: $BookScreenRouteExtension._fromState,
+      routes: [
+        GoRouteData.$route(
+          path: 'book/:sku',
+          factory: $BookPageRouteExtension._fromState,
+        ),
+      ],
     );
 
 extension $BookScreenRouteExtension on BookScreenRoute {
@@ -21,6 +27,25 @@ extension $BookScreenRouteExtension on BookScreenRoute {
 
   String get location => GoRouteData.$location(
         '/',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $BookPageRouteExtension on BookPageRoute {
+  static BookPageRoute _fromState(GoRouterState state) => BookPageRoute(
+        sku: state.pathParameters['sku']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/book/${Uri.encodeComponent(sku)}',
       );
 
   void go(BuildContext context) => context.go(location);

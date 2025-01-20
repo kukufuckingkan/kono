@@ -1,8 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kono/ui/screen/book_screen.dart';
-import 'package:kono/ui/widget/book_widget.dart';
+
 
 
 

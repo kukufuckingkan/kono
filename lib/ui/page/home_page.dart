@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import '../../application_router.dart';
-import '../widget/app_bar.dart';
 import '../widget/side_bar_widget.dart';
 import '../widget/user_account_drawer.dart';
 
@@ -31,7 +30,7 @@ class HomePage extends ConsumerWidget {
       // ),
       appBar: AppBar(),
       drawer: const KulkulkanAccountDrawer(),
-      endDrawer: const SideBarWidget(),
+     
 
       bottomNavigationBar: Consumer(
         builder: (context, WidgetRef ref, __) {
@@ -46,11 +45,9 @@ class HomePage extends ConsumerWidget {
             onTap: (int i) {
               switch (i) {
                 case 0:
-                 // const HomeScreenRoute().go(context);
+                 const BookScreenRoute().go(context);
                   break;
                 case 1:
-                //const BookPageRoute(id: 2, sku: '').go(context);
-                 //BookPageRoute(sku: '').go(context);
                   context.go('/chapter');
                   break;
                 default:

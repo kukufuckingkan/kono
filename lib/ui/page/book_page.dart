@@ -1,33 +1,73 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:kono/controller/book_controller.dart';
+import 'package:kono/controller/section_controller.dart';
+import 'package:kono/response/book_response.dart';
 
-import '../../controller/chapter_controller.dart';
-
-
-
-class BookPage extends ConsumerWidget {
+class BookPage extends StatelessWidget {
   final String sku;
-  const BookPage({super.key,required this.sku});
+  final String? name;
+
+  BookPage({super.key, this.name, required this.sku});
 
   @override
-  Widget build(context, ref) {
-    Future.microtask(() =>
-        {ref.read(chapterController.notifier).findAll()});
-
-    return Column(
-      children: [
-        Flexible(child: Consumer(builder: (_, ref, __) {
-          var state = ref.watch(chapterController.select((value) => value));
-          var chapters = state.chapters;
-          var curr = chapters.first;
-          return Text("Book Page");
-          //var data = base64.decode(curr.data); 
-          //String text = utf8.decode(data,allowMalformed: true);
-
-          //return Text(text,style: GoogleFonts.arOneSans(),);
-        }))
-      ],
-    );
+  Widget build(context) {
+    return Consumer(builder: (ctx, ref, widget) {
+       Future.microtask(() => ref.read(sectionController.notifier).findAllByBookSku(sku));
+       
+      var state = ref.watch(bookController.select((value) => value));
+      var sectionState =  ref.watch(sectionController.select((value) => value));
+      var sections = sectionState.sections;
+      if (state.fetching) {
+        return const CircularProgressIndicator();
+      }
+      if (state.error.isNotEmpty) {
+        return Text(state.error);
+      }
+      return Card(
+        margin: const EdgeInsets.all(8.0),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Flexible(flex: 1, child: Text('Book NAMe')),
+                      ],
+                    ),
+                    Stack(
+                      children: [
+                        SingleChildScrollView(
+                          
+                          child: ListView.separated(
+                            itemCount: sections.length,
+                            itemBuilder: (context, index) {
+                            var section = sections[index];
+                            return Text(section.title!.first.text);
+                          }, 
+                          separatorBuilder: (BuildContext context, int index) { 
+                            return const Divider(color: Colors.blue);
+                           }, 
+                          ) ,
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    });
   }
 }

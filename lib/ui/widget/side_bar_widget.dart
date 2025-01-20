@@ -40,7 +40,7 @@ class SideBarWidget extends StatelessWidget {
                 return ElevatedButton(
                   onPressed: (){
                     var sku = book.sku;
-                    // BookPageRoute(sku: sku).go(context);
+                    BookPageRoute(sku: sku).go(context);
                   },
                   child: ListTile(
                     title: Text(title.text),
