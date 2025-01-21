@@ -48,7 +48,7 @@ class BookPage extends StatelessWidget {
                             itemCount: sections.length,
                             itemBuilder: (context, index) {
                             var section = sections[index];
-                            return Text(section.title!.first.text);
+                            return Text(section.name);
                           }, 
                           separatorBuilder: (BuildContext context, int index) { 
                             return const Divider(color: Colors.blue);

@@ -9,10 +9,10 @@ part 'section_response.g.dart';
 class SectionResponse extends BaseResponse {
 
  
-  final List<TitleResponse> ? title;
+  final String name;
 
   SectionResponse({
-   required this.title, required super.created, required super.modified, required super.version, required super.sku, required super.ordinal
+   required this.name, required super.created, required super.modified, required super.version, required super.sku, required super.ordinal
   });
 
   factory SectionResponse.fromJson(Map<String, dynamic> json) => _$SectionResponseFromJson(json);
