@@ -59,7 +59,7 @@ class _BookPageState extends ConsumerState<BookPage> {
         final section = sectionState.sections[index];
         return ElevatedButton(
           onPressed: () {
-            ChapterPageRoute(sectionSku: section.sku).go(context);
+            ChapterPageRoute(sectionSku: "uuuu").go(context);
           },
           child: Text(section.name),
         );

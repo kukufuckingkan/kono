@@ -19,11 +19,23 @@ final GlobalKey<NavigatorState> _appNavigatorKey = GlobalKey<NavigatorState>();
       TypedGoRoute<BookPageRoute>(
         path: 'book/:sku',
       ),
-      TypedGoRoute<ChapterPageRoute>(
+            TypedGoRoute<ChapterPageRoute>(
         path: 'chapter/:sectionSku',
-      )
+      ),
     ]
 )
+
+
+@TypedGoRoute<BookScreenRoute>(
+    path: '/',
+    routes: [
+    
+            TypedGoRoute<ChapterPageRoute>(
+        path: 'chapter/:sectionSku',
+      ),
+    ]
+)
+
 
 @immutable
 class BookScreenRoute extends GoRouteData {

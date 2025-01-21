@@ -19,10 +19,10 @@ class DatabaseService {
 
   var chapt = chapters.first;
 
-  var test = ChapterEntity(name: chapt.name ?? '', ordinal: chapt.ordinal ?? 1, id: chapt.id ?? "", data: chapt.data);
+  //var test = ChapterEntity(name: chapt.name ?? '', ordinal: chapt.ordinal ?? 1, id: chapt.id ?? "", data: chapt.data);
 
-  await box.put(chapt.id,test);
-  getChapter(chapt.id);
+  //await box.put(chapt.id,test);
+  //getChapter(chapt.id);
   }
 
   Future<ChapterEntity?> getChapter(String id) async {

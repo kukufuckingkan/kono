@@ -17,6 +17,7 @@ class ChapterScreen extends ConsumerWidget {
   Widget build(context, ref) {
     Future.microtask(() =>
         {ref.read(chapterController.notifier).findAll()});
+        
 
     return Column(
       children: [
