@@ -2,68 +2,73 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kono/application_router.dart';
 import 'package:kono/controller/section_controller.dart';
 
-class BookPage extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kono/application_router.dart';
+import 'package:kono/controller/section_controller.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kono/application_router.dart';
+import 'package:kono/controller/section_controller.dart';
+
+class BookPage extends ConsumerStatefulWidget {
   final String sku;
   final String? name;
 
-  BookPage({super.key, this.name, required this.sku});
+  BookPage({Key? key, required this.sku, this.name}) : super(key: key);
 
   @override
-  Widget build(context) {
-    return Consumer(builder: (ctx, ref, widget) {
-       Future.microtask(() => ref.read(sectionController.notifier).findByBookSku(sku));
-       
-      var sectionState =  ref.watch(sectionController.select((value) => value));
-      var sections = sectionState.sections;
-      if (sectionState.fetching) {
-        return const CircularProgressIndicator();
-      }
-      if (sectionState.error.isNotEmpty) {
-        return Text(sectionState.error);
-      }
-      return Card(
-        margin: const EdgeInsets.all(8.0),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Stack(
-            children: [
-              SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Flexible(flex: 1, child: Text('Book NAMe')),
-                      ],
-                    ),
-                    Stack(
-                      children: [
-                        SingleChildScrollView(
-                          
-                          child: ListView.separated(
-                            itemCount: sections.length,
-                            itemBuilder: (context, index) {
-                            var section = sections[index];
-                            return Text(section.name);
-                          }, 
-                          separatorBuilder: (BuildContext context, int index) { 
-                            return const Divider(color: Colors.blue);
-                           }, 
-                          ) ,
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
+  _BookPageState createState() => _BookPageState();
+}
+
+class _BookPageState extends ConsumerState<BookPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    // Trigger the fetch only once after the widget is initialized
+    Future.microtask(() {
+      ref.read(sectionController.notifier).findByBookSku(widget.sku);
     });
   }
+
+  @override
+  Widget build(BuildContext context) {
+    final sectionState = ref.watch(sectionController);
+
+    if (sectionState.fetching) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (sectionState.error.isNotEmpty) {
+      return Center(
+        child: Text(
+          sectionState.error,
+          style: const TextStyle(color: Colors.red, fontSize: 16),
+        ),
+      );
+    }
+
+    return ListView.separated(
+      itemCount: sectionState.sections.length,
+      itemBuilder: (context, index) {
+        final section = sectionState.sections[index];
+        return ElevatedButton(
+          onPressed: () {
+            ChapterPageRoute(sectionSku: section.sku).go(context);
+          },
+          child: Text(section.name),
+        );
+      },
+      separatorBuilder: (context, index) {
+        return const Divider(color: Colors.blue, thickness: 1);
+      },
+    );
+  }
 }
+
+

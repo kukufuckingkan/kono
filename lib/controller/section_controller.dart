@@ -13,7 +13,9 @@ class SectionController extends StateNotifier<SectionState> {
   final Ref ref;
 
 
-   SectionController(this.ref) : super(SectionState.initial());
+   SectionController(this.ref) : super(SectionState.initial()){
+    // Future.microtask(() => ref.read(sectionController.notifier).findByBookSku(sku));
+   }
 
     Future<List<SectionResponse>> findByBookSku(String bookSku) async {
     try {

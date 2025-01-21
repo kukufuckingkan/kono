@@ -18,6 +18,9 @@ final GlobalKey<NavigatorState> _appNavigatorKey = GlobalKey<NavigatorState>();
     routes: [
       TypedGoRoute<BookPageRoute>(
         path: 'book/:sku',
+      ),
+      TypedGoRoute<ChapterPageRoute>(
+        path: 'chapter/:sectionSku',
       )
     ]
 )
@@ -43,6 +46,20 @@ class BookPageRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return HomePage(BookPage(sku: sku,));
+  }
+}
+
+@immutable
+class ChapterPageRoute extends GoRouteData {
+  final String sectionSku;
+
+  const ChapterPageRoute({required this.sectionSku});
+
+  
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return HomePage(ChapterScreen());
   }
 }
 
