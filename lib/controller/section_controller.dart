@@ -15,10 +15,10 @@ class SectionController extends StateNotifier<SectionState> {
 
    SectionController(this.ref) : super(SectionState.initial());
 
-    Future<List<SectionResponse>> findAllByBookSku(String bookSku) async {
+    Future<List<SectionResponse>> findByBookSku(String bookSku) async {
     try {
       state = state.copyWith(fetching: true);
-      var response = await ref.read(sectionService).findAllByBookSku(bookSku);
+      var response = await ref.read(sectionService).findByBookSku(bookSku);
       state = state.copyWith(fetching: false,sections: response);
       //ref.read(databseService).addChapter(response);
       return response;

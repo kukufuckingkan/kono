@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kono/response/book_response.dart';
 import 'package:kono/response/section_response.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -24,7 +23,7 @@ abstract class SectionApi {
 
 
   @GET(EndPoint.findAll)
-  Future<List<SectionResponse>> findAllByBookSku(@Query("bookSku") String bookSku);
+  Future<List<SectionResponse>> findBookBySku(@Query("bookSku") String bookSku);
 }
 
 

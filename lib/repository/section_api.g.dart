@@ -24,7 +24,7 @@ class _SectionApi implements SectionApi {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<List<SectionResponse>> findAllByBookSku(String bookSku) async {
+  Future<List<SectionResponse>> findBookBySku(String bookSku) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'bookSku': bookSku};
     final _headers = <String, dynamic>{};

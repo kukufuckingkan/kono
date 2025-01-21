@@ -2,10 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:kono/controller/book_controller.dart';
 import 'package:kono/controller/section_controller.dart';
-import 'package:kono/response/book_response.dart';
 
 class BookPage extends StatelessWidget {
   final String sku;
@@ -16,16 +13,15 @@ class BookPage extends StatelessWidget {
   @override
   Widget build(context) {
     return Consumer(builder: (ctx, ref, widget) {
-       Future.microtask(() => ref.read(sectionController.notifier).findAllByBookSku(sku));
+       Future.microtask(() => ref.read(sectionController.notifier).findByBookSku(sku));
        
-      var state = ref.watch(bookController.select((value) => value));
       var sectionState =  ref.watch(sectionController.select((value) => value));
       var sections = sectionState.sections;
-      if (state.fetching) {
+      if (sectionState.fetching) {
         return const CircularProgressIndicator();
       }
-      if (state.error.isNotEmpty) {
-        return Text(state.error);
+      if (sectionState.error.isNotEmpty) {
+        return Text(sectionState.error);
       }
       return Card(
         margin: const EdgeInsets.all(8.0),

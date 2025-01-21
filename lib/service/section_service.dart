@@ -16,9 +16,9 @@ class SectionService {
 
   SectionService(this.ref);
 
-    Future<List<SectionResponse>> findAllByBookSku(String bookSku) async {
+    Future<List<SectionResponse>> findByBookSku(String bookSku) async {
     try {
-      var response = await ref.read(sectionApi).findAllByBookSku(bookSku);
+      var response = await ref.read(sectionApi).findBookBySku(bookSku);
       return response;
     } on DioException catch (e) {
           log(e.toString());

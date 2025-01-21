@@ -40,7 +40,7 @@ class BookScreen extends StatelessWidget {
                   },
                   child: ListTile(
                     title: Text(title.text),
-                    subtitle: Text(subTitle),
+                    //subtitle: Text(subTitle),
                   ),
                 );
               }, separatorBuilder: (BuildContext context, int index) {  
