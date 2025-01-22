@@ -5,8 +5,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kono/application_router.dart';
 import 'package:kono/controller/book_controller.dart';
 
-class BookScreen extends StatelessWidget {
-  const BookScreen({super.key});
+class BookScreen extends ConsumerStatefulWidget{
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return _BookScreenState();
+  }
+
+}
+
+
+class _BookScreenState extends ConsumerState<BookScreen> {
+  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
 
   @override
   Widget build(context) {

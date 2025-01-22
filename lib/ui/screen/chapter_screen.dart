@@ -10,16 +10,30 @@ import 'package:page_flip/page_flip.dart';
 import '../../controller/chapter_controller.dart';
 import '../page/chapter_page.dart';
 
-
-
-class ChapterScreen extends ConsumerWidget {
-
+class ChapterScreen extends ConsumerStatefulWidget {
   const ChapterScreen({super.key});
 
   @override
-  Widget build(context, ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    
+    return _ChapterScreenState();
+  }
+  
+}
+
+class _ChapterScreenState extends ConsumerState<ChapterScreen> {
+
+  @override
+  void initState() {
     Future.microtask(() =>
         {ref.read(chapterController.notifier).findAll()});
+
+    super.initState();
+  }
+ 
+  @override
+  Widget build(context) {
+
             var state = ref.watch(chapterController.select((value) => value));
            var chapters = state.chapters;
         return PageFlipWidget(children: [
