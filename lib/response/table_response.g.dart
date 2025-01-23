@@ -12,6 +12,9 @@ TableResponse _$TableResponseFromJson(Map<String, dynamic> json) =>
           .map((e) => RowResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       name: json['name'] as String,
+      columns: (json['columns'] as List<dynamic>)
+          .map((e) => ColumnResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
       version: (json['version'] as num).toInt(),
       sku: json['sku'] as String,
       ordinal: (json['ordinal'] as num).toInt(),
@@ -20,6 +23,7 @@ TableResponse _$TableResponseFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$TableResponseToJson(TableResponse instance) =>
     <String, dynamic>{
       'rows': instance.rows,
+      'columns': instance.columns,
       'name': instance.name,
       'sku': instance.sku,
       'version': instance.version,

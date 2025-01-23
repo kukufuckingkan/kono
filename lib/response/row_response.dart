@@ -7,16 +7,15 @@ part 'row_response.g.dart';
 
 @JsonSerializable(includeIfNull: false, ignoreUnannotated: false,nullable: true)
 class RowResponse {
-  final List<String> text;
-  final bool header;
+  final List<String> row;
+  
 
 
 
 
 
   RowResponse({
-    required this.text,
-    required this.header,
+    required this.row,
   });
 
   factory RowResponse.fromJson(Map<String, dynamic> json) => _$RowResponseFromJson(json);

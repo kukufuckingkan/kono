@@ -7,12 +7,10 @@ part of 'row_response.dart';
 // **************************************************************************
 
 RowResponse _$RowResponseFromJson(Map<String, dynamic> json) => RowResponse(
-      text: (json['text'] as List<dynamic>).map((e) => e as String).toList(),
-      header: json['header'] as bool,
+      row: (json['row'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$RowResponseToJson(RowResponse instance) =>
     <String, dynamic>{
-      'text': instance.text,
-      'header': instance.header,
+      'row': instance.row,
     };

@@ -36,15 +36,15 @@ class _ChapterPageState extends ConsumerState<ChapterPage>{
           String text = utf8.decode(decoded,allowMalformed: true);
 
           var tableState = ref.watch(tableController);
-          var tableValue = tableState.tables.first;
+          var table = tableState.tables.first;
           List<DataRow> rows =[];
 
-          for(var i = 0 ; i < tableValue.rows.length;i++){
+          for(var i = 0 ; i < table.rows.length;i++){
              List<DataCell> cells = [];
-              var currRow = tableValue.rows[i];
+              var currRow = table.rows[i];
              
-             for(int j = 0 ; j < currRow.text.length;j++){
-              var currText = currRow.text[j];
+             for(int j = 0 ; j < currRow.row.length;j++){
+              var currText = currRow.row[j];
               cells.add(DataCell(Text(currText)));
              
              }
@@ -53,10 +53,15 @@ class _ChapterPageState extends ConsumerState<ChapterPage>{
 
           }
      List<DataColumn> cols = [];
-     cols.add(DataColumn(label: Text("col1")));
-      cols.add(DataColumn(label: Text("col2")));
-       cols.add(DataColumn(label: Text("col3")));
 
+      for(var z = 0 ; z < table.columns.length;z ++){
+        var curr = table.columns[z];
+
+        for(var c = 0 ; c < curr.headers.length;c++){
+          cols.add(DataColumn(label: Text(curr.headers[c])));
+        }
+      }
+      
     return Column(children: [
            Center(child: Text(text,style: GoogleFonts.arOneSans(),)),
            //Text(tableValue.toString()),

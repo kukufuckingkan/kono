@@ -1,6 +1,7 @@
 
 import 'package:json_annotation/json_annotation.dart';
 import 'package:kono/response/base_response.dart';
+import 'package:kono/response/column_response.dart';
 import 'package:kono/response/row_response.dart';
 import 'package:kono/response/title_response.dart';
 
@@ -9,6 +10,7 @@ part 'table_response.g.dart';
 @JsonSerializable(includeIfNull: false, ignoreUnannotated: false,nullable: true)
 class TableResponse  {
   final List<RowResponse> rows;
+  final List<ColumnResponse> columns;
   final String name;
 
   final String sku;
@@ -22,6 +24,7 @@ class TableResponse  {
   TableResponse({
     required this.rows,
     required this.name,
+    required this.columns,
      required this.version, required this.sku, required this.ordinal
  
   });
