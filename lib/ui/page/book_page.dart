@@ -28,11 +28,9 @@ class BookPage extends ConsumerStatefulWidget {
 class _BookPageState extends ConsumerState<BookPage> {
   @override
   void initState() {
-    super.initState();
-
-    // Trigger the fetch only once after the widget is initialized
-    Future.microtask(() {
+        Future.microtask(() {
       ref.read(sectionController.notifier).findByBookSku(widget.sku);
+    super.initState();
     });
   }
 
@@ -59,7 +57,8 @@ class _BookPageState extends ConsumerState<BookPage> {
         final section = sectionState.sections[index];
         return ElevatedButton(
           onPressed: () {
-            ChapterPageRoute(sectionSku: "uuuu").go(context);
+            var sku = section.sku;
+            ChapterPageRoute(sectionSku: sku).go(context);
           },
           child: Text(section.name),
         );

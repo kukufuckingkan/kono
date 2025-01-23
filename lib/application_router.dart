@@ -65,13 +65,13 @@ class BookPageRoute extends GoRouteData {
 class ChapterPageRoute extends GoRouteData {
   final String sectionSku;
 
-  const ChapterPageRoute({required this.sectionSku});
+   ChapterPageRoute({required this.sectionSku});
 
   
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return HomePage(ChapterScreen());
+    return HomePage(ChapterScreen(sku: '',));
   }
 }
 

@@ -11,17 +11,23 @@ import '../../controller/chapter_controller.dart';
 import '../page/chapter_page.dart';
 
 class ChapterScreen extends ConsumerStatefulWidget {
-  const ChapterScreen({super.key});
+  final String sku;
+  const ChapterScreen({super.key, required this.sku});
+  
+
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
     
-    return _ChapterScreenState();
+    return _ChapterScreenState(sku: sku);
   }
   
 }
 
 class _ChapterScreenState extends ConsumerState<ChapterScreen> {
+  final String sku;
+
+  _ChapterScreenState({required this.sku});
 
   @override
   void initState() {
