@@ -9,8 +9,8 @@ part of 'section_response.dart';
 SectionResponse _$SectionResponseFromJson(Map<String, dynamic> json) =>
     SectionResponse(
       name: json['name'] as String,
-      created: DateTime.parse(json['created'] as String),
-      modified: DateTime.parse(json['modified'] as String),
+      created: (json['created'] as num).toInt(),
+      modified: (json['modified'] as num).toInt(),
       version: (json['version'] as num).toInt(),
       sku: json['sku'] as String,
       ordinal: (json['ordinal'] as num).toInt(),
@@ -19,8 +19,8 @@ SectionResponse _$SectionResponseFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$SectionResponseToJson(SectionResponse instance) =>
     <String, dynamic>{
       'sku': instance.sku,
-      'created': instance.created.toIso8601String(),
-      'modified': instance.modified.toIso8601String(),
+      'created': instance.created,
+      'modified': instance.modified,
       'version': instance.version,
       'ordinal': instance.ordinal,
       'name': instance.name,

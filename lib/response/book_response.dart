@@ -9,13 +9,13 @@ part 'book_response.g.dart';
 class BookResponse extends BaseResponse {
 
  
-  final List<TitleResponse> ? title;
+  final List<String> ? names;
 
 
 
 
   BookResponse({
-   required this.title, required super.created, required super.modified, required super.version, required super.sku, required super.ordinal
+   required this.names, required super.created, required super.modified, required super.version, required super.sku, required super.ordinal
   });
 
   factory BookResponse.fromJson(Map<String, dynamic> json) => _$BookResponseFromJson(json);

@@ -8,14 +8,12 @@ import 'package:kono/response/title_response.dart';
 part 'table_response.g.dart';
 
 @JsonSerializable(includeIfNull: false, ignoreUnannotated: false,nullable: true)
-class TableResponse  {
+class TableResponse extends BaseResponse {
   final List<RowResponse> rows;
   final List<ColumnResponse> columns;
   final String name;
 
-  final String sku;
-  final int version;
-  final int ordinal;
+ 
 
 
 
@@ -25,7 +23,7 @@ class TableResponse  {
     required this.rows,
     required this.name,
     required this.columns,
-     required this.version, required this.sku, required this.ordinal
+    required super.created, required super.modified, required super.sku, required super.version, required super.ordinal
  
   });
 

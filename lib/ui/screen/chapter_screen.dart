@@ -44,7 +44,7 @@ class _ChapterScreenState extends ConsumerState<ChapterScreen> {
            var chapters = state.chapters;
         return PageFlipWidget(children: [
 
-        for (var i = 0; i < chapters.length; i++) ChapterPage(data: chapters[i].data,)
+        for (var i = 0; i < 2; i++) ChapterPage(data: "",)
 
         ],);
   }

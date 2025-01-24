@@ -8,8 +8,8 @@ part of 'base_response.dart';
 
 BaseResponse _$BaseResponseFromJson(Map<String, dynamic> json) => BaseResponse(
       sku: json['sku'] as String,
-      created: DateTime.parse(json['created'] as String),
-      modified: DateTime.parse(json['modified'] as String),
+      created: (json['created'] as num).toInt(),
+      modified: (json['modified'] as num).toInt(),
       version: (json['version'] as num).toInt(),
       ordinal: (json['ordinal'] as num).toInt(),
     );
@@ -17,8 +17,8 @@ BaseResponse _$BaseResponseFromJson(Map<String, dynamic> json) => BaseResponse(
 Map<String, dynamic> _$BaseResponseToJson(BaseResponse instance) =>
     <String, dynamic>{
       'sku': instance.sku,
-      'created': instance.created.toIso8601String(),
-      'modified': instance.modified.toIso8601String(),
+      'created': instance.created,
+      'modified': instance.modified,
       'version': instance.version,
       'ordinal': instance.ordinal,
     };

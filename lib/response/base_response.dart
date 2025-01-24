@@ -6,8 +6,8 @@ part 'base_response.g.dart';
 @JsonSerializable(includeIfNull: false, ignoreUnannotated: false,nullable: true)
 class BaseResponse {
   final String sku;
-  final DateTime created;
-  final DateTime modified;
+  final int created;
+  final int modified;
   final int version;
   final int ordinal;
 

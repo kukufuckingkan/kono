@@ -8,22 +8,33 @@ part of 'chapter_response.dart';
 
 ChapterResponse _$ChapterResponseFromJson(Map<String, dynamic> json) =>
     ChapterResponse(
-      data: json['data'] as String,
-      name: json['name'] as String,
-      created: DateTime.parse(json['created'] as String),
-      modified: DateTime.parse(json['modified'] as String),
+      parts: (json['parts'] as List<dynamic>?)
+          ?.map((e) => PartResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      name: json['name'] as String?,
+      created: (json['created'] as num).toInt(),
+      modified: (json['modified'] as num).toInt(),
       version: (json['version'] as num).toInt(),
       sku: json['sku'] as String,
       ordinal: (json['ordinal'] as num).toInt(),
     );
 
-Map<String, dynamic> _$ChapterResponseToJson(ChapterResponse instance) =>
-    <String, dynamic>{
-      'sku': instance.sku,
-      'created': instance.created.toIso8601String(),
-      'modified': instance.modified.toIso8601String(),
-      'version': instance.version,
-      'ordinal': instance.ordinal,
-      'name': instance.name,
-      'data': instance.data,
-    };
+Map<String, dynamic> _$ChapterResponseToJson(ChapterResponse instance) {
+  final val = <String, dynamic>{
+    'sku': instance.sku,
+    'created': instance.created,
+    'modified': instance.modified,
+    'version': instance.version,
+    'ordinal': instance.ordinal,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('parts', instance.parts);
+  return val;
+}

@@ -15,17 +15,21 @@ TableResponse _$TableResponseFromJson(Map<String, dynamic> json) =>
       columns: (json['columns'] as List<dynamic>)
           .map((e) => ColumnResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      version: (json['version'] as num).toInt(),
+      created: (json['created'] as num).toInt(),
+      modified: (json['modified'] as num).toInt(),
       sku: json['sku'] as String,
+      version: (json['version'] as num).toInt(),
       ordinal: (json['ordinal'] as num).toInt(),
     );
 
 Map<String, dynamic> _$TableResponseToJson(TableResponse instance) =>
     <String, dynamic>{
+      'sku': instance.sku,
+      'created': instance.created,
+      'modified': instance.modified,
+      'version': instance.version,
+      'ordinal': instance.ordinal,
       'rows': instance.rows,
       'columns': instance.columns,
       'name': instance.name,
-      'sku': instance.sku,
-      'version': instance.version,
-      'ordinal': instance.ordinal,
     };

@@ -1,22 +1,23 @@
 
 import 'package:json_annotation/json_annotation.dart';
 import 'package:kono/response/base_response.dart';
+import 'package:kono/response/part_response.dart';
 import 'package:kono/response/title_response.dart';
 
 part 'chapter_response.g.dart';
 
 @JsonSerializable(includeIfNull: false, ignoreUnannotated: false,nullable: true)
 class ChapterResponse extends BaseResponse {
-  final String name;
-  final String data;
+  String? name;
+  List<PartResponse>? parts;
 
 
 
 
 
   ChapterResponse({
-    required this.data,
-    required this.name,
+    this.parts,
+    this.name,
     required super.created, required super.modified, required super.version, required super.sku, required super.ordinal
  
   });

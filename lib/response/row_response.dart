@@ -9,11 +9,6 @@ part 'row_response.g.dart';
 class RowResponse {
   final List<String> row;
   
-
-
-
-
-
   RowResponse({
     required this.row,
   });

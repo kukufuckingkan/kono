@@ -46,7 +46,7 @@ class _BookScreenState extends ConsumerState<BookScreen> {
               itemCount: books.length,
               itemBuilder: (context, index) {
                 var book = books[index];
-                var title = book.title!.first;
+                var name = book.names!.first;
                 var subTitle = 'subtile';
                 return ElevatedButton(
                   onPressed: (){
@@ -54,7 +54,7 @@ class _BookScreenState extends ConsumerState<BookScreen> {
                     BookPageRoute(sku: sku).go(context);
                   },
                   child: ListTile(
-                    title: Text(title.text),
+                    title: Text(name),
                     //subtitle: Text(subTitle),
                   ),
                 );
