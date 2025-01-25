@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kono/ui/page/book_page.dart';
 import 'package:kono/ui/screen/book_screen.dart';
-import 'package:kono/ui/screen/chapter_screen.dart';
 import 'ui/page/home_page.dart';
 
 part 'application_router.g.dart'; // Add this for code generation
@@ -19,22 +18,22 @@ final GlobalKey<NavigatorState> _appNavigatorKey = GlobalKey<NavigatorState>();
       TypedGoRoute<BookPageRoute>(
         path: 'book/:sku',
       ),
-            TypedGoRoute<ChapterPageRoute>(
-        path: 'chapter/:sectionSku',
-      ),
+      //       TypedGoRoute<ChapterPageRoute>(
+      //   path: 'chapter/:sectionSku',
+      // ),
     ]
 )
 
 
-@TypedGoRoute<BookScreenRoute>(
-    path: '/',
-    routes: [
+// @TypedGoRoute<BookScreenRoute>(
+//     path: '/',
+//     routes: [
     
-            TypedGoRoute<ChapterPageRoute>(
-        path: 'chapter/:sectionSku',
-      ),
-    ]
-)
+//             TypedGoRoute<ChapterPageRoute>(
+//         path: 'chapter/:sectionSku',
+//       ),
+//     ]
+// )
 
 
 @immutable
@@ -61,19 +60,19 @@ class BookPageRoute extends GoRouteData {
   }
 }
 
-@immutable
-class ChapterPageRoute extends GoRouteData {
-  final String sectionSku;
+// @immutable
+// class ChapterPageRoute extends GoRouteData {
+//   final String sectionSku;
 
-   ChapterPageRoute({required this.sectionSku});
+//    ChapterPageRoute({required this.sectionSku});
 
   
 
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return HomePage(ChapterScreen(sku: '',));
-  }
-}
+//   @override
+//   Widget build(BuildContext context, GoRouterState state) {
+//     return HomePage(ChapterScreen(sku: '',));
+//   }
+// }
 
 final appRouter = Provider<GoRouter>((ref) {
   return GoRouter(
