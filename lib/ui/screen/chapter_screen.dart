@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kono/ui/page/book_page.dart';
 import 'package:page_flip/page_flip.dart';
+import 'package:split_view/split_view.dart';
 
 import '../../controller/chapter_controller.dart';
 import '../page/chapter_page.dart';
@@ -40,12 +41,17 @@ class _ChapterScreenState extends ConsumerState<ChapterScreen> {
   @override
   Widget build(context) {
 
-            var state = ref.watch(chapterController.select((value) => value));
+               var state = ref.watch(chapterController.select((value) => value));
            var chapters = state.chapters;
-        return PageFlipWidget(children: [
+        
 
+    return SplitView(viewMode: SplitViewMode.Horizontal,
+    children: [
+      PageFlipWidget(children: [
         for (var i = 0; i < 2; i++) ChapterPage(data: "",)
+        ],),
+        Text("table of content"),
+    ],);
 
-        ],);
   }
 }
