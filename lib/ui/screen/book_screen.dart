@@ -1,27 +1,22 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kono/application_router.dart';
 import 'package:kono/controller/book_controller.dart';
 
-class BookScreen extends ConsumerStatefulWidget{
+class BookScreen extends ConsumerStatefulWidget {
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
     return _BookScreenState();
   }
-
 }
 
-
 class _BookScreenState extends ConsumerState<BookScreen> {
-  
   @override
   void initState() {
-    // TODO: implement initState
+     Future.microtask(() =>  ref.read(bookController.notifier).findAll());
     super.initState();
   }
-
 
   @override
   Widget build(context) {
@@ -49,7 +44,7 @@ class _BookScreenState extends ConsumerState<BookScreen> {
                 var name = book.names!.first;
                 var subTitle = 'subtile';
                 return ElevatedButton(
-                  onPressed: (){
+                  onPressed: () {
                     var sku = book.sku;
                     BookPageRoute(sku: sku).go(context);
                   },
@@ -58,7 +53,8 @@ class _BookScreenState extends ConsumerState<BookScreen> {
                     //subtitle: Text(subTitle),
                   ),
                 );
-              }, separatorBuilder: (BuildContext context, int index) {  
+              },
+              separatorBuilder: (BuildContext context, int index) {
                 return const Divider(color: Colors.blue);
               },
             ),

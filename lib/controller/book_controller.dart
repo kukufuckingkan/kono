@@ -11,9 +11,7 @@ import 'package:kono/service/book_service.dart';
 class BookController extends StateNotifier<BookState> {
   final Ref ref;
 
-   BookController(this.ref) : super(BookState.initial()){
-        Future.microtask(() => findAll());
-   }
+   BookController(this.ref) : super(BookState.initial());
 
     Future<List<BookResponse>> findAll() async {
     try {

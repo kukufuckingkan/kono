@@ -2,7 +2,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:kono/response/base_response.dart';
 import 'package:kono/response/part_response.dart';
-import 'package:kono/response/title_response.dart';
 
 part 'chapter_response.g.dart';
 
@@ -10,6 +9,7 @@ part 'chapter_response.g.dart';
 class ChapterResponse extends BaseResponse {
   String? name;
   List<PartResponse>? parts;
+  final String ?sectionSku;
 
 
 
@@ -18,6 +18,7 @@ class ChapterResponse extends BaseResponse {
   ChapterResponse({
     this.parts,
     this.name,
+     this.sectionSku,
     required super.created, required super.modified, required super.version, required super.sku, required super.ordinal
  
   });

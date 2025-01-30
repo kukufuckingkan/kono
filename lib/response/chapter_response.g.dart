@@ -12,6 +12,7 @@ ChapterResponse _$ChapterResponseFromJson(Map<String, dynamic> json) =>
           ?.map((e) => PartResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       name: json['name'] as String?,
+      sectionSku: json['sectionSku'] as String?,
       created: (json['created'] as num).toInt(),
       modified: (json['modified'] as num).toInt(),
       version: (json['version'] as num).toInt(),
@@ -36,5 +37,6 @@ Map<String, dynamic> _$ChapterResponseToJson(ChapterResponse instance) {
 
   writeNotNull('name', instance.name);
   writeNotNull('parts', instance.parts);
+  writeNotNull('sectionSku', instance.sectionSku);
   return val;
 }

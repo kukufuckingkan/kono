@@ -12,6 +12,7 @@ part 'chapter_api.g.dart';
 
 class EndPoint {
       static const findAll = "/chapter";
+      static const findBySku = "/chapter/{sku}";
 }
 
 @RestApi(baseUrl: 'http://192.168.0.95:8050')
@@ -24,6 +25,9 @@ abstract class ChapterApi {
 
   @GET(EndPoint.findAll)
   Future<List<ChapterResponse>> findAll();
+
+    @GET(EndPoint.findBySku)
+  Future<ChapterResponse> findBySku(@Path('sku') String sku);
 }
 
 

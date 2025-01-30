@@ -2,38 +2,40 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:kono/controller/chapter_controller.dart';
-import 'package:kono/controller/table_controller.dart';
-import 'package:kono/service/table_service.dart';
+
+import '../input/chapter_page_input.dart';
 
 class ChapterPage extends ConsumerStatefulWidget {
-  final String data;
-  const ChapterPage({super.key, required this.data});
+
+  final ChapterPageInput input;
+  const ChapterPage({super.key, required this.input});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
-    return _ChapterPageState(data: data);
+    return _ChapterPageState();
   }
 }
 
 class _ChapterPageState extends ConsumerState<ChapterPage> {
-  final String data;
+  
 
-  _ChapterPageState({required this.data});
+  _ChapterPageState();
 
   @override
   void initState() {
-    Future.microtask(() => ref.read(chapterController.notifier).findAll());
+    Future.microtask(() => ref.read(chapterController.notifier).findBySku(widget.input.chapterSku));
+    //Future.microtask(() => ref.read(chapterController.notifier).findAll());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     var state = ref.watch(chapterController);
-    var chapter = state.chapters.first;
-    var parts = chapter.parts;
+  
     List<Widget> items = [];
+    var chapter = state.chapter;
+    var parts = chapter.parts;
 
     String text = "";
     List<DataColumn> cols = [];

@@ -26,6 +26,19 @@ class ChapterService {
     }
   }
 
+    Future<ChapterResponse> findBySku(String sku) async {
+    try {
+      var response = await ref.read(chapterApi).findBySku(sku);
+      return response;
+    } on DioException catch (e) {
+          log(e.toString());
+      throw Exception(e);
+    } on SocketException catch (e) {
+      log(e.toString());
+      throw Exception(e);
+    }
+  }
+
 }
 
 final chapterService =

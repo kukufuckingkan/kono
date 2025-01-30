@@ -14,17 +14,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kono/application_router.dart';
 import 'package:kono/controller/section_controller.dart';
+import 'package:kono/response/chapter_response.dart';
 import 'package:kono/ui/page/chapter_page.dart';
 import 'package:page_flip/page_flip.dart';
 import 'package:split_view/split_view.dart';
 
 import '../../controller/chapter_controller.dart';
+import '../input/chapter_page_input.dart';
 
 class BookPage extends ConsumerStatefulWidget {
   final String sku;
   final String? name;
 
-  BookPage({Key? key, required this.sku, this.name}) : super(key: key);
+  BookPage({super.key, required this.sku, this.name});
 
   @override
   _BookPageState createState() => _BookPageState();
@@ -34,10 +36,7 @@ class _BookPageState extends ConsumerState<BookPage> {
   @override
   void initState() {
         Future.microtask(() {
-      ref.read(sectionController.notifier).findByBookSku(widget.sku);
-
-      Future.microtask(() => {ref.read(chapterController.notifier).findAll()});
-      
+      ref.read(sectionController.notifier).findByBookSku(widget.sku);  
     super.initState();
     });
   }
@@ -45,8 +44,9 @@ class _BookPageState extends ConsumerState<BookPage> {
   @override
   Widget build(BuildContext context) {
     final sectionState = ref.watch(sectionController);
-    var state = ref.watch(chapterController.select((value) => value));
-    var chapters = state.chapters;
+    //var state = ref.watch(chapterController.select((value) => value));
+   // var chapters = state.chapters;
+
 
     if (sectionState.fetching) {
       return const Center(child: CircularProgressIndicator());
@@ -61,6 +61,18 @@ class _BookPageState extends ConsumerState<BookPage> {
       );
     }
 
+
+       var chaptersInputs = [];
+       List<ChapterPage> pages = [];
+
+    for(var sec in sectionState.sections){
+       for(var chp in sec.chapters){
+        var input = ChapterPageInput(chapterSku: chp.sku, sectionSku: sec.sku);
+       // chaptersInputs.add(input);
+        pages.add(ChapterPage(input: input));
+       }
+    }
+
    
 
     return SplitView(
@@ -68,11 +80,12 @@ class _BookPageState extends ConsumerState<BookPage> {
        gripSize: 10,
        controller: SplitViewController(weights: [0.8,0.2]),
       children: [
+         
                PageFlipWidget(
           children: [
-            for (var i = 0; i < 2; i++)
+              for (var chapt in chaptersInputs)
               ChapterPage(
-                data: "",
+                input: chapt,
               )
           ],
         ),
