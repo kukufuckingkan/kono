@@ -7,16 +7,27 @@ import 'package:kono/controller/chapter_controller.dart';
 import '../input/chapter_page_input.dart';
 
 
-
-class ChapterPage extends ConsumerWidget{
+class ChapterPage extends ConsumerStatefulWidget {
   final String sku;
 
   ChapterPage({super.key, required this.sku});
- 
 
   @override
-  Widget build(BuildContext context,ref) {
-      Future.microtask(() => ref.read(chapterController.notifier).findAll());
+  _ChapterPageState createState() => _ChapterPageState();
+}
+
+
+
+class _ChapterPageState  extends ConsumerState<ChapterPage>{
+
+  @override
+  void initState() {
+   Future.microtask(() => ref.read(chapterController.notifier).findAll());
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     var state = ref.watch(chapterController);
 
     // Loading state
