@@ -25,4 +25,6 @@ class ChapterResponse extends BaseResponse {
 
   factory ChapterResponse.fromJson(Map<String, dynamic> json) => _$ChapterResponseFromJson(json);
   Map<String, dynamic> toJson() => _$ChapterResponseToJson(this);
+
 }
+

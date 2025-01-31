@@ -22,7 +22,7 @@ class _ChapterPageState  extends ConsumerState<ChapterPage>{
 
   @override
   void initState() {
-   Future.microtask(() => ref.read(chapterController.notifier).findAll());
+   Future.microtask(() => ref.read(chapterController.notifier).findBySku(widget.sku));
     super.initState();
   }
 
