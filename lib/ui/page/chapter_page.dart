@@ -8,8 +8,9 @@ import '../input/chapter_page_input.dart';
 
 class ChapterPage extends ConsumerStatefulWidget {
 
-  final ChapterPageInput input;
-  const ChapterPage({super.key, required this.input});
+  //final ChapterPageInput input;
+  final String sku;
+  const ChapterPage({super.key, required String this.sku});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
@@ -24,7 +25,7 @@ class _ChapterPageState extends ConsumerState<ChapterPage> {
 
   @override
   void initState() {
-    Future.microtask(() => ref.read(chapterController.notifier).findBySku(widget.input.chapterSku));
+   // Future.microtask(() => ref.read(chapterController.notifier).findBySku(widget.sku));
     //Future.microtask(() => ref.read(chapterController.notifier).findAll());
     super.initState();
   }

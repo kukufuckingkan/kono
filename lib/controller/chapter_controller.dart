@@ -12,7 +12,9 @@ import 'chapter_state.dart';
 class ChapterController extends StateNotifier<ChapterState> {
   final Ref ref;
 
-   ChapterController(this.ref) : super(ChapterState.initial());
+   ChapterController(this.ref) : super(ChapterState.initial()){
+    findBySku("709a8c50-1d62-4827-8a5f-33b17d9652f1");
+   }
 
     Future<dynamic> findAll() async {
     try {

@@ -24,9 +24,8 @@ import '../input/chapter_page_input.dart';
 
 class BookPage extends ConsumerStatefulWidget {
   final String sku;
-  final String? name;
 
-  BookPage({super.key, required this.sku, this.name});
+  BookPage({super.key, required this.sku});
 
   @override
   _BookPageState createState() => _BookPageState();
@@ -35,18 +34,17 @@ class BookPage extends ConsumerStatefulWidget {
 class _BookPageState extends ConsumerState<BookPage> {
   @override
   void initState() {
-        Future.microtask(() {
-      ref.read(sectionController.notifier).findByBookSku(widget.sku);  
-    super.initState();
+    Future.microtask(() {
+      ref.read(sectionController.notifier).findByBookSku(widget.sku);
     });
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final sectionState = ref.watch(sectionController);
     //var state = ref.watch(chapterController.select((value) => value));
-   // var chapters = state.chapters;
-
+    // var chapters = state.chapters;
 
     if (sectionState.fetching) {
       return const Center(child: CircularProgressIndicator());
@@ -61,53 +59,48 @@ class _BookPageState extends ConsumerState<BookPage> {
       );
     }
 
+    List<ChapterPageInput> chaptersInputs = [];
+    List<ChapterPage> pages = [];
 
-       var chaptersInputs = [];
-       List<ChapterPage> pages = [];
-
-    for(var sec in sectionState.sections){
-       for(var chp in sec.chapters){
+    for (var sec in sectionState.sections) {
+      for (var chp in sec.chapters) {
         var input = ChapterPageInput(chapterSku: chp.sku, sectionSku: sec.sku);
-       // chaptersInputs.add(input);
-        pages.add(ChapterPage(input: input));
-       }
+        chaptersInputs.add(input);
+        // pages.add(ChapterPage(input: input));
+      }
     }
 
-   
-
-    return SplitView(
-       viewMode: SplitViewMode.Horizontal,
-       gripSize: 10,
-       controller: SplitViewController(weights: [0.8,0.2]),
+   return ListView.separated(
+  itemCount: sectionState.sections.length,
+  itemBuilder: (context, index) {
+    final section = sectionState.sections[index];
+    return Column(
       children: [
-         
-               PageFlipWidget(
-          children: [
-              for (var chapt in chaptersInputs)
-              ChapterPage(
-                input: chapt,
-              )
-          ],
-        ),
-        ListView.separated(
-          itemCount: sectionState.sections.length,
-          itemBuilder: (context, index) {
-            final section = sectionState.sections[index];
-            return ElevatedButton(
-              onPressed: () {
-                var sku = section.sku;
-                //ChapterPageRoute(sectionSku: sku).go(context);
-              },
-              child: Text(section.name),
-            );
+        ElevatedButton(
+          onPressed: () {
+            var sku = section.sku;
+            //ChapterPageRoute(sectionSku: sku).go(context);
           },
+          child: Text(section.name),
+        ),
+        // Inner ListView with shrinkWrap
+        ListView.separated(
+          itemCount: 3,
+          shrinkWrap: true, // Makes the inner ListView take up only the space it needs
           separatorBuilder: (context, index) {
             return const Divider(color: Colors.blue, thickness: 1);
+          },
+          itemBuilder: (ctx, i) {
+            return Text("chha");
           },
         ),
       ],
     );
+  },
+  separatorBuilder: (context, index) {
+    return const Divider(color: Colors.blue, thickness: 1);
+  },
+);
+
   }
 }
-
-

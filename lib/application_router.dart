@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kono/ui/page/book_page.dart';
 import 'package:kono/ui/screen/book_screen.dart';
+import 'ui/page/chapter_page.dart';
 import 'ui/page/home_page.dart';
 
 part 'application_router.g.dart'; // Add this for code generation
@@ -70,7 +71,7 @@ class BookPageRoute extends GoRouteData {
 
 //   @override
 //   Widget build(BuildContext context, GoRouterState state) {
-//     return HomePage(ChapterScreen(sku: '',));
+//     return HomePage(ChapterPage(sku: sectionSku,));
 //   }
 // }
 
