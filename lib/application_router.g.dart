@@ -18,6 +18,10 @@ RouteBase get $bookScreenRoute => GoRouteData.$route(
           path: 'book/:sku',
           factory: $BookPageRouteExtension._fromState,
         ),
+        GoRouteData.$route(
+          path: 'chapter/:chapterSku',
+          factory: $ChapterPageRouteExtension._fromState,
+        ),
       ],
     );
 
@@ -46,6 +50,25 @@ extension $BookPageRouteExtension on BookPageRoute {
 
   String get location => GoRouteData.$location(
         '/book/${Uri.encodeComponent(sku)}',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ChapterPageRouteExtension on ChapterPageRoute {
+  static ChapterPageRoute _fromState(GoRouterState state) => ChapterPageRoute(
+        chapterSku: state.pathParameters['chapterSku']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/chapter/${Uri.encodeComponent(chapterSku)}',
       );
 
   void go(BuildContext context) => context.go(location);

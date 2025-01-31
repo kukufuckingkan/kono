@@ -85,13 +85,16 @@ class _BookPageState extends ConsumerState<BookPage> {
         ),
         // Inner ListView with shrinkWrap
         ListView.separated(
-          itemCount: 3,
+          itemCount: section.chapters.length,
           shrinkWrap: true, // Makes the inner ListView take up only the space it needs
           separatorBuilder: (context, index) {
             return const Divider(color: Colors.blue, thickness: 1);
           },
           itemBuilder: (ctx, i) {
-            return Text("chha");
+            return ElevatedButton(onPressed: () { 
+              ChapterPageRoute(chapterSku: section.chapters[i].sku).go(context);
+             },
+            child: Text(section.chapters[i].name ?? "missing"));
           },
         ),
       ],

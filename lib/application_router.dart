@@ -19,22 +19,22 @@ final GlobalKey<NavigatorState> _appNavigatorKey = GlobalKey<NavigatorState>();
       TypedGoRoute<BookPageRoute>(
         path: 'book/:sku',
       ),
-      //       TypedGoRoute<ChapterPageRoute>(
-      //   path: 'chapter/:sectionSku',
-      // ),
+            TypedGoRoute<ChapterPageRoute>(
+        path: 'chapter/:chapterSku',
+      ),
     ]
 )
 
 
-// @TypedGoRoute<BookScreenRoute>(
-//     path: '/',
-//     routes: [
+@TypedGoRoute<BookScreenRoute>(
+    path: '/',
+    routes: [
     
-//             TypedGoRoute<ChapterPageRoute>(
-//         path: 'chapter/:sectionSku',
-//       ),
-//     ]
-// )
+            TypedGoRoute<ChapterPageRoute>(
+        path: 'chapter/:chapterSku',
+      ),
+    ]
+)
 
 
 @immutable
@@ -61,19 +61,19 @@ class BookPageRoute extends GoRouteData {
   }
 }
 
-// @immutable
-// class ChapterPageRoute extends GoRouteData {
-//   final String sectionSku;
+@immutable
+class ChapterPageRoute extends GoRouteData {
+  final String chapterSku;
 
-//    ChapterPageRoute({required this.sectionSku});
+   ChapterPageRoute({required this.chapterSku});
 
   
 
-//   @override
-//   Widget build(BuildContext context, GoRouterState state) {
-//     return HomePage(ChapterPage(sku: sectionSku,));
-//   }
-// }
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return HomePage(ChapterPage(sku: chapterSku,));
+  }
+}
 
 final appRouter = Provider<GoRouter>((ref) {
   return GoRouter(

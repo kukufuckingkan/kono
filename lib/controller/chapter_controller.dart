@@ -13,7 +13,7 @@ class ChapterController extends StateNotifier<ChapterState> {
   final Ref ref;
 
    ChapterController(this.ref) : super(ChapterState.initial()){
-    findBySku("709a8c50-1d62-4827-8a5f-33b17d9652f1");
+   // findBySku("709a8c50-1d62-4827-8a5f-33b17d9652f1");
    }
 
     Future<dynamic> findAll() async {
@@ -30,18 +30,18 @@ class ChapterController extends StateNotifier<ChapterState> {
   }
 
 
-    Future<dynamic> findBySku(String sku) async {
-    try {
-      state = state.copyWith(fetching: true);
-      var response = await ref.read(chapterService).findBySku(sku);
-      state = state.copyWith(fetching: false,chapter: response);
-      //ref.read(databseService).addChapter(response);
-      return response;
-    } on Exception catch (e) {
-       log(e.toString());
-      state = state.copyWith(fetching: false, error : e.toString());
-    }
-  }
+  //   Future<dynamic> findBySku(String sku) async {
+  //   try {
+  //     state = state.copyWith(fetching: true);
+  //     var response = await ref.read(chapterService).findBySku(sku);
+  //     state = state.copyWith(fetching: false,chapter: response);
+  //     //ref.read(databseService).addChapter(response);
+  //     return response;
+  //   } on Exception catch (e) {
+  //      log(e.toString());
+  //     state = state.copyWith(fetching: false, error : e.toString());
+  //   }
+  // }
 
 }
 

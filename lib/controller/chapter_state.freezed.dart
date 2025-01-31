@@ -18,7 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ChapterState {
   bool get fetching => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
-  ChapterResponse get chapter => throw _privateConstructorUsedError;
   List<ChapterResponse> get chapters => throw _privateConstructorUsedError;
 
   /// Create a copy of ChapterState
@@ -34,11 +33,7 @@ abstract class $ChapterStateCopyWith<$Res> {
           ChapterState value, $Res Function(ChapterState) then) =
       _$ChapterStateCopyWithImpl<$Res, ChapterState>;
   @useResult
-  $Res call(
-      {bool fetching,
-      String error,
-      ChapterResponse chapter,
-      List<ChapterResponse> chapters});
+  $Res call({bool fetching, String error, List<ChapterResponse> chapters});
 }
 
 /// @nodoc
@@ -58,7 +53,6 @@ class _$ChapterStateCopyWithImpl<$Res, $Val extends ChapterState>
   $Res call({
     Object? fetching = null,
     Object? error = null,
-    Object? chapter = null,
     Object? chapters = null,
   }) {
     return _then(_value.copyWith(
@@ -70,10 +64,6 @@ class _$ChapterStateCopyWithImpl<$Res, $Val extends ChapterState>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
-      chapter: null == chapter
-          ? _value.chapter
-          : chapter // ignore: cast_nullable_to_non_nullable
-              as ChapterResponse,
       chapters: null == chapters
           ? _value.chapters
           : chapters // ignore: cast_nullable_to_non_nullable
@@ -90,11 +80,7 @@ abstract class _$$ChapterStateImplCopyWith<$Res>
       __$$ChapterStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool fetching,
-      String error,
-      ChapterResponse chapter,
-      List<ChapterResponse> chapters});
+  $Res call({bool fetching, String error, List<ChapterResponse> chapters});
 }
 
 /// @nodoc
@@ -112,7 +98,6 @@ class __$$ChapterStateImplCopyWithImpl<$Res>
   $Res call({
     Object? fetching = null,
     Object? error = null,
-    Object? chapter = null,
     Object? chapters = null,
   }) {
     return _then(_$ChapterStateImpl(
@@ -124,10 +109,6 @@ class __$$ChapterStateImplCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
-      chapter: null == chapter
-          ? _value.chapter
-          : chapter // ignore: cast_nullable_to_non_nullable
-              as ChapterResponse,
       chapters: null == chapters
           ? _value._chapters
           : chapters // ignore: cast_nullable_to_non_nullable
@@ -142,7 +123,6 @@ class _$ChapterStateImpl implements _ChapterState {
   _$ChapterStateImpl(
       {required this.fetching,
       required this.error,
-      required this.chapter,
       required final List<ChapterResponse> chapters})
       : _chapters = chapters;
 
@@ -150,8 +130,6 @@ class _$ChapterStateImpl implements _ChapterState {
   final bool fetching;
   @override
   final String error;
-  @override
-  final ChapterResponse chapter;
   final List<ChapterResponse> _chapters;
   @override
   List<ChapterResponse> get chapters {
@@ -162,7 +140,7 @@ class _$ChapterStateImpl implements _ChapterState {
 
   @override
   String toString() {
-    return 'ChapterState(fetching: $fetching, error: $error, chapter: $chapter, chapters: $chapters)';
+    return 'ChapterState(fetching: $fetching, error: $error, chapters: $chapters)';
   }
 
   @override
@@ -173,12 +151,11 @@ class _$ChapterStateImpl implements _ChapterState {
             (identical(other.fetching, fetching) ||
                 other.fetching == fetching) &&
             (identical(other.error, error) || other.error == error) &&
-            (identical(other.chapter, chapter) || other.chapter == chapter) &&
             const DeepCollectionEquality().equals(other._chapters, _chapters));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, fetching, error, chapter,
+  int get hashCode => Object.hash(runtimeType, fetching, error,
       const DeepCollectionEquality().hash(_chapters));
 
   /// Create a copy of ChapterState
@@ -194,15 +171,12 @@ abstract class _ChapterState implements ChapterState {
   factory _ChapterState(
       {required final bool fetching,
       required final String error,
-      required final ChapterResponse chapter,
       required final List<ChapterResponse> chapters}) = _$ChapterStateImpl;
 
   @override
   bool get fetching;
   @override
   String get error;
-  @override
-  ChapterResponse get chapter;
   @override
   List<ChapterResponse> get chapters;
 

@@ -6,77 +6,85 @@ import 'package:kono/controller/chapter_controller.dart';
 
 import '../input/chapter_page_input.dart';
 
-class ChapterPage extends ConsumerStatefulWidget {
 
-  //final ChapterPageInput input;
+
+class ChapterPage extends ConsumerWidget{
   final String sku;
-  const ChapterPage({super.key, required String this.sku});
+
+  ChapterPage({super.key, required this.sku});
+ 
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() {
-    return _ChapterPageState();
-  }
-}
-
-class _ChapterPageState extends ConsumerState<ChapterPage> {
-  
-
-  _ChapterPageState();
-
-  @override
-  void initState() {
-   // Future.microtask(() => ref.read(chapterController.notifier).findBySku(widget.sku));
-    //Future.microtask(() => ref.read(chapterController.notifier).findAll());
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,ref) {
+      Future.microtask(() => ref.read(chapterController.notifier).findAll());
     var state = ref.watch(chapterController);
-  
+
+    // Loading state
+    if (state.fetching) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    // Error state
+    if (state.error.isNotEmpty) {
+      return Center(
+        child: Text(
+          state.error,
+          style: const TextStyle(color: Colors.red, fontSize: 16),
+        ),
+      );
+    }
+
+    // Chapter and parts processing
     List<Widget> items = [];
-    var chapter = state.chapter;
+    var chapter = state.chapters.first;
     var parts = chapter.parts;
 
-    String text = "";
-    List<DataColumn> cols = [];
-    List<DataRow> rows = [];
-    
     for (var part in parts!) {
       if (part.format == "text") {
-        //var data = part.
-        var decoded = base64.decode(part.data ?? "");
-        text = utf8.decode(decoded, allowMalformed: true);
-        items.add(Text(text));
+        // Decode base64 text format
+        try {
+          var decoded = base64.decode(part.data ?? "");
+          String text = utf8.decode(decoded, allowMalformed: true);
+          items.add(Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(text),
+          ));
+        } catch (e) {
+          items.add(Text('Error decoding text', style: TextStyle(color: Colors.red)));
+        }
       }
 
-      else if(part.format == "json_table") {
-        var len = part.table!.rows!.length;
-        for (var i = 0; i < len; i++) {
+      else if (part.format == "json_table") {
+        // Process table format
+        List<DataColumn> cols = [];
+        List<DataRow> rows = [];
+
+        // Add columns (headers)
+        for (var col in part.table!.columns!) {
+          for (var header in col.headers!) {
+            cols.add(DataColumn(label: Text(header)));
+          }
+        }
+
+        // Add rows
+        for (var row in part.table!.rows!) {
           List<DataCell> cells = [];
-          var currRow = part.table!.rows![i];
-
-          for (int j = 0; j < currRow.row!.length; j++) {
-            var currText = currRow.row![j];
-            cells.add(DataCell(Text(currText)));
+          for (var cellText in row.row!) {
+            cells.add(DataCell(Text(cellText)));
           }
-          var newRow = DataRow(cells: cells);
-          rows.add(newRow);
+          rows.add(DataRow(cells: cells));
         }
 
-        for (var z = 0; z < part.table!.columns!.length; z++) {
-          var curr = part.table!.columns![z];
-
-          for (var c = 0; c < curr.headers!.length; c++) {
-            cols.add(DataColumn(label: Text(curr.headers![c])));
-          }
-        }
-        items.add(DataTable(columns: cols, rows: rows));
+        items.add(Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: DataTable(columns: cols, rows: rows),
+        ));
       }
     }
 
-    return Column(
-      children: items
+    // Return the dynamic list of items as a scrollable ListView
+    return ListView(
+      children: items,
     );
   }
 }

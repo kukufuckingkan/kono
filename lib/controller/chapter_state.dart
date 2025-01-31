@@ -10,11 +10,10 @@ abstract class ChapterState with _$ChapterState{
     factory ChapterState({
     required final bool fetching,
     required final String error,
-    required ChapterResponse chapter,
     required List<ChapterResponse> chapters
   }) = _ChapterState;
 
   factory  ChapterState.initial(){
-    return ChapterState(fetching: false, error: '',chapter: ChapterResponse.fromJson({}),chapters: []);
+    return ChapterState(fetching: false, error: '',chapters: []);
   }
 }
